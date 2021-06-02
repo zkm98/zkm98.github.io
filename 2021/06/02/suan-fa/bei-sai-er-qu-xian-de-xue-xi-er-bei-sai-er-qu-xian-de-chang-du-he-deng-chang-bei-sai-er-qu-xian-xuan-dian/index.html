@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="how to compile your apache 2.4.47, zkm98">
+    <meta name="keywords" content="贝塞尔曲线的学习二：贝塞尔曲线的长度和等长贝塞尔曲线选点, zkm98">
     <meta name="description" content="准备！">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>how to compile your apache 2.4.47 | zkm98</title>
+    <title>贝塞尔曲线的学习二：贝塞尔曲线的长度和等长贝塞尔曲线选点 | zkm98</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -300,12 +300,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">how to compile your apache 2.4.47</h1>
+                    <h1 class="description center-align post-title">贝塞尔曲线的学习二：贝塞尔曲线的长度和等长贝塞尔曲线选点</h1>
                 </div>
             </div>
         </div>
@@ -430,12 +430,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/apache/">
-                                <span class="chip bg-color">apache</span>
+                            <a href="/tags/c/">
+                                <span class="chip bg-color">c++</span>
                             </a>
                         
-                            <a href="/tags/httpd/">
-                                <span class="chip bg-color">httpd</span>
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">算法</span>
                             </a>
                         
                     </div>
@@ -446,8 +446,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E9%85%8D%E7%BD%AE/" class="post-category">
-                                配置
+                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
+                                算法
                             </a>
                         
                     </div>
@@ -459,7 +459,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-05-27
+                    2021-06-02
                 </div>
                 
 
@@ -468,14 +468,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    57
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    4 分
                 </div>
                 
 
@@ -485,7 +485,91 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h2><p>在编译apache2.4.47的时候，个人有了很多的问题。所以这里是简明的一个便于去安装的内容，同时也是解决了一些常见的个人问题。<br>TODO:</p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>  在上一个文章中，我们简单地描述了如何使用简单的贝塞尔曲线，以及贝塞尔曲线的求导内容。在本文中将主要介绍贝塞尔曲线长度的求解和等长参数化贝塞尔曲线的计算。</p>
+<h2 id="1-求弧长"><a href="#1-求弧长" class="headerlink" title="1. 求弧长"></a>1. 求弧长</h2><p>  对于如何求解弧长，我们可以使用近似法不断地去逼近弧长的长度。</p>
+<p>$$L=\sum_{j=1}^{m-1}|C(t_{j+1})-C_(t_j)|   \tag{1}$$</p>
+<p>​    根据柯西中值定理，我们可以求解到原式子可以为：</p>
+<p>$$L\approx \sum_{j=1}^{m-1}|C’(t_j^*)|(t_{j+1}-t_j) \tag{2}$$</p>
+<p>​    我们可以使用积分的方式进行求解：</p>
+<p>​    $$L=\int_0^1|C’(t)|dt \tag{3}$$</p>
+<p>​    至于如何求解这个内容，这个对贝塞尔曲线来说是没有解析解的，尤其是对于高维度的贝塞尔点，为了简要的实现这个内容可以使用辛普森3/8规则进行逼近。</p>
+<h4 id="辛普森3-8规则："><a href="#辛普森3-8规则：" class="headerlink" title="辛普森3/8规则："></a>辛普森3/8规则：</h4><p>​    $$\int_a^b f(x)dx = \frac{(b-a)}{8} [f(a)+3f(\frac{2a+b}{3})+3f(\frac{a+2b}{3})+f(b)] \tag{4}$$</p>
+<p>​    一个简单C++实现为：</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">struct</span> NumericalIntegration
+<span class="token punctuation">{</span>
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> F<span class="token operator">></span>
+<span class="token keyword">static</span> <span class="token keyword">double</span> 
+<span class="token function">simpson_3_8</span><span class="token punctuation">(</span>F<span class="token operator">&amp;&amp;</span> derivative_func<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">double</span><span class="token operator">&amp;</span> L<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">double</span><span class="token operator">&amp;</span> R<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">double</span> mid_L <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>L <span class="token operator">+</span> R<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">3.0</span><span class="token punctuation">,</span> mid_R <span class="token operator">=</span> <span class="token punctuation">(</span>L <span class="token operator">+</span> <span class="token number">2</span><span class="token operator">*</span>R<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">3.0</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token function">derivative_func</span><span class="token punctuation">(</span>L<span class="token punctuation">)</span> <span class="token operator">+</span> 
+            <span class="token number">3.0</span> <span class="token operator">*</span> <span class="token function">derivative_func</span><span class="token punctuation">(</span>mid_L<span class="token punctuation">)</span> <span class="token operator">+</span> 
+            <span class="token number">3.0</span> <span class="token operator">*</span> <span class="token function">derivative_func</span><span class="token punctuation">(</span>mid_R<span class="token punctuation">)</span> <span class="token operator">+</span> 
+            <span class="token function">derivative_func</span><span class="token punctuation">(</span>R<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>R <span class="token operator">-</span> L<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">8.0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">typename</span> F<span class="token operator">></span>
+<span class="token keyword">static</span> <span class="token keyword">double</span> 
+<span class="token function">adaptive_simpson_3_8</span><span class="token punctuation">(</span>F<span class="token operator">&amp;&amp;</span> derivative_func<span class="token punctuation">,</span> 
+    <span class="token keyword">const</span> <span class="token keyword">double</span><span class="token operator">&amp;</span> L<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">double</span><span class="token operator">&amp;</span> R<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">double</span><span class="token operator">&amp;</span> eps <span class="token operator">=</span> <span class="token number">0.0001</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token keyword">double</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>L <span class="token operator">+</span> R<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2.0</span><span class="token punctuation">;</span>
+    <span class="token keyword">double</span> ST <span class="token operator">=</span> <span class="token function">simpson_3_8</span><span class="token punctuation">(</span>derivative_func<span class="token punctuation">,</span> L<span class="token punctuation">,</span> R<span class="token punctuation">)</span><span class="token punctuation">,</span>
+           SL <span class="token operator">=</span> <span class="token function">simpson_3_8</span><span class="token punctuation">(</span>derivative_func<span class="token punctuation">,</span> L<span class="token punctuation">,</span> mid<span class="token punctuation">)</span><span class="token punctuation">,</span>
+           SR <span class="token operator">=</span> <span class="token function">simpson_3_8</span><span class="token punctuation">(</span>derivative_func<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> R<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">double</span> ans <span class="token operator">=</span> SL <span class="token operator">+</span> SR <span class="token operator">-</span> ST<span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">fabs</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">15.0</span> <span class="token operator">*</span> eps<span class="token punctuation">)</span>  <span class="token keyword">return</span> SL <span class="token operator">+</span> SR <span class="token operator">+</span> ans <span class="token operator">/</span> <span class="token number">15.0</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">adaptive_simpson_3_8</span><span class="token punctuation">(</span>derivative_func<span class="token punctuation">,</span> L<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> eps <span class="token operator">/</span> <span class="token number">2.0</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+           <span class="token function">adaptive_simpson_3_8</span><span class="token punctuation">(</span>derivative_func<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> R<span class="token punctuation">,</span> eps <span class="token operator">/</span> <span class="token number">2.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>​    所以在计算贝塞尔曲线长度的时候，就可以使用下面的公式进行计算：</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">double</span> <span class="token function">computeLength</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">auto</span> df <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token keyword">double</span> t<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token keyword">double</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">dev</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">norm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    length_ <span class="token operator">=</span> NumericalIntegration<span class="token operator">::</span><span class="token function">adaptive_simpson_3_8</span><span class="token punctuation">(</span>df<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="2-重参数化（等弧长）"><a href="#2-重参数化（等弧长）" class="headerlink" title="2.重参数化（等弧长）"></a>2.重参数化（等弧长）</h2><p>​    <img src="https://pic4.zhimg.com/80/v2-5de2fabe3f58d8bf91f82b45db51a38f_720w.jpg"></p>
+<p>​    如果我们按照t为，1/k,2/k….，这样的方式进行取点，我们会很容易得到左边的效果。但是我们普遍需要的是右边的等距离点的时候。应该怎么去做呢？</p>
+<p>​    这个时候可以使用重参数化来去进行计算。</p>
+<p>​    我们可以认为存在一个映射，使得：</p>
+<p>$$[0,1]\rightarrow[0,L]$$</p>
+<p>​    而且能够一一映射。这里我们可以定义一个函数为g。</p>
+<p>$$g(t)=\int_0^t|C’(z)|dz \tag{5}$$</p>
+<p>​    该函数严格递增，而且连续可导。那么g函数的反函数h，便能够很简单将长度映射为t。</p>
+<p>​    当然能够取到反函数最好。然后在一些高阶的贝塞尔曲线下，这个是做不到的。</p>
+<p>​    所以就有了参数化逼近的方法：</p>
+<p>​    在1中我们得知了<a href="#%E8%BE%9B%E6%99%AE%E6%A3%AE3/8%E8%A7%84%E5%88%99%EF%BC%9A">辛普森规则</a>，所以我们参数逼近的方法去做。我们可以将问题转化为找t，使得g(t)=s。整体的规划内容就变成了一个约束性问题：</p>
+<p>$$t_s=\underset{t\in[0,1]}{argmin}(g(t)-s)^2 \tag{6}$$</p>
+<p>​    为了使用这个部分，我们会采用牛顿法进行求导：</p>
+<p>$$\begin{align}g’(t)&amp;=2d|C’(t)| \tag{7}\ g’’(t)&amp;=2d|C’’(t)| + |C’(t)|^2 \tag{8}\ d &amp;= g(t)-s \tag{9} \end{align} $$</p>
+<p>​    为了去更新t，我们可以使用下面的迭代公式：</p>
+<p>$$t_{s,n+1}=t_{x,n}-\frac{g’(t)}{g”(t)} \tag{10}$$</p>
+<p>​    在迭代的过程中，我们初始化t为m/k，这个值在一般情况下，很容易去近似真实的结果。但是在这个的情况下，需要多次大量的调用<a href="#%E8%BE%9B%E6%99%AE%E6%A3%AE3/8%E8%A7%84%E5%88%99%EF%BC%9A">辛普森规则</a>，其中的时间开销太大。为了更加有效地去利用，我们这里使用点的距离作为一个近似解。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> iter<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>iter<span class="token operator">&lt;</span>max_iter_time<span class="token punctuation">;</span><span class="token operator">++</span>iter<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>n<span class="token punctuation">;</span><span class="token operator">++</span>j<span class="token punctuation">)</span>dists<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>ret<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">-</span>ret<span class="token punctuation">[</span>j<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">norm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">double</span> offset <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>n<span class="token punctuation">;</span><span class="token operator">++</span>j<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">const</span> <span class="token keyword">double</span> err_dist <span class="token operator">=</span> dists<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">-</span> avg_distance<span class="token punctuation">;</span>
+        offset <span class="token operator">+</span><span class="token operator">=</span> err_dist<span class="token punctuation">;</span>
+        <span class="token keyword">double</span> first_deriv <span class="token operator">=</span> <span class="token function">dev</span><span class="token punctuation">(</span>t_array<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">norm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">double</span> second_deriv <span class="token operator">=</span> <span class="token function">dev2</span><span class="token punctuation">(</span>t_array<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">norm</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">double</span> numerator <span class="token operator">=</span> offset <span class="token operator">*</span> first_deriv<span class="token punctuation">;</span>
+        <span class="token keyword">double</span> d <span class="token operator">=</span> offset <span class="token operator">*</span> second_deriv <span class="token operator">+</span> first_deriv <span class="token operator">*</span> first_deriv<span class="token punctuation">;</span>
+        t_array<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">-</span><span class="token operator">=</span> numerator<span class="token operator">/</span>d<span class="token punctuation">;</span>
+        ret<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">at</span><span class="token punctuation">(</span>t_array<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>offset<span class="token operator">&lt;</span>eps<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​    上面的两个内容主要是本文的讲解重心。本文高度使用了大量的来自知乎中一文的解读。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/130247362">贝塞尔曲线的求导、弧长参数化与分段拟合方法</a></li>
+</ol>
 
             </div>
             <hr/>
@@ -511,7 +595,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://zkm98.github.io/2021/05/27/pei-zhi-guo-cheng/hello-world/">https://zkm98.github.io/2021/05/27/pei-zhi-guo-cheng/hello-world/</a>
+                    <a href="https://zkm98.github.io/2021/06/02/suan-fa/bei-sai-er-qu-xian-de-xue-xi-er-bei-sai-er-qu-xian-de-chang-du-he-deng-chang-bei-sai-er-qu-xian-xuan-dian/">https://zkm98.github.io/2021/06/02/suan-fa/bei-sai-er-qu-xian-de-xue-xi-er-bei-sai-er-qu-xian-de-chang-du-he-deng-chang-bei-sai-er-qu-xian-xuan-dian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -549,12 +633,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/apache/">
-                                    <span class="chip bg-color">apache</span>
+                                <a href="/tags/c/">
+                                    <span class="chip bg-color">c++</span>
                                 </a>
                             
-                                <a href="/tags/httpd/">
-                                    <span class="chip bg-color">httpd</span>
+                                <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">算法</span>
                                 </a>
                             
                         </div>
@@ -989,21 +1073,21 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/06/02/suan-fa/bei-sai-er-qu-xian-de-xue-xi-er-bei-sai-er-qu-xian-de-chang-du-he-deng-chang-bei-sai-er-qu-xian-xuan-dian/">
+                <a href="/2021/06/02/suan-fa/bei-sai-er-qu-xian-de-xue-xi-yi-ji-ben-n-jie-bei-sai-er-qu-xian-he-qiu-dao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="贝塞尔曲线的学习二：贝塞尔曲线的长度和等长贝塞尔曲线选点">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="贝塞尔曲线的学习一：基本n阶贝塞尔曲线和求导">
                         
-                        <span class="card-title">贝塞尔曲线的学习二：贝塞尔曲线的长度和等长贝塞尔曲线选点</span>
+                        <span class="card-title">贝塞尔曲线的学习一：基本n阶贝塞尔曲线和求导</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简介  在上一个文章中，我们简单地描述了如何使用简单的贝塞尔曲线，以及贝塞尔曲线的求导内容。在本文中将主要介绍贝塞尔曲线长度的求解和等长参数化贝塞尔曲线的计算。
-1. 求弧长  对于如何求解弧长，我们可以使用近似法不断地去逼近弧长的长度。
-
+                            简介本文主要是从贝塞尔曲线的定义和求导下手进行简单贝塞尔曲线的学习和整理。
+1.基本定义贝塞尔曲线是参数化曲线（Parametric Curves）的一种，其n阶次曲线具有如下的形式：
+$$C(t) = \sum_{i=0}^{n}B_{i
                         
                     </div>
                     <div class="publish-info">
@@ -1044,33 +1128,32 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/09/11/hello-world/">
+                <a href="/2021/05/27/pei-zhi-guo-cheng/hello-world/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Hello World to Hexo">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="how to compile your apache 2.4.47">
                         
-                        <span class="card-title">Hello World to Hexo</span>
+                        <span class="card-title">how to compile your apache 2.4.47</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            说在前面我的blog很大程度上不算blog，算是个整合贴。我的blog的流程一般是这样的：
-遇到一个实际问题，或者从完全不了解到初步入门，我会保留自己在解决这个问题的浏览器历史搜索记录（请务必科学上网）、大致流程、特殊问题和解决方案。
-一般
+                            说在前面在编译apache2.4.47的时候，个人有了很多的问题。所以这里是简明的一个便于去安装的内容，同时也是解决了一些常见的个人问题。TODO:
+
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-27
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="post-category">
-                                    博客搭建
+                            <a href="/categories/%E9%85%8D%E7%BD%AE/" class="post-category">
+                                    配置
                                 </a>
                             
                             
@@ -1080,12 +1163,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Hexo/">
-                        <span class="chip bg-color">Hexo</span>
+                    <a href="/tags/apache/">
+                        <span class="chip bg-color">apache</span>
                     </a>
                     
-                    <a href="/tags/Gitpage/">
-                        <span class="chip bg-color">Gitpage</span>
+                    <a href="/tags/httpd/">
+                        <span class="chip bg-color">httpd</span>
                     </a>
                     
                 </div>

@@ -6,7 +6,7 @@
   <link href="https://zkm98.github.io/atom.xml" rel="self"/>
   
   <link href="https://zkm98.github.io/"/>
-  <updated>2021-05-27T03:23:40.592Z</updated>
+  <updated>2021-06-02T03:27:38.467Z</updated>
   <id>https://zkm98.github.io/</id>
   
   <author>
@@ -17,25 +17,52 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>打地鼠</title>
-    <link href="https://zkm98.github.io/2021/05/27/suan-fa/test/"/>
-    <id>https://zkm98.github.io/2021/05/27/suan-fa/test/</id>
-    <published>2021-05-27T12:26:00.000Z</published>
-    <updated>2021-05-27T03:23:40.592Z</updated>
+    <title>贝塞尔曲线的学习一：基本n阶贝塞尔曲线和求导</title>
+    <link href="https://zkm98.github.io/2021/06/02/suan-fa/bei-sai-er-qu-xian-de-xue-xi-yi-ji-ben-n-jie-bei-sai-er-qu-xian-he-qiu-dao/"/>
+    <id>https://zkm98.github.io/2021/06/02/suan-fa/bei-sai-er-qu-xian-de-xue-xi-yi-ji-ben-n-jie-bei-sai-er-qu-xian-he-qiu-dao/</id>
+    <published>2021-06-02T02:26:00.000Z</published>
+    <updated>2021-06-02T03:27:38.467Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h2&gt;&lt;p&gt;目前有一个二维的数组map[m][n],&lt;/p&gt;
-&lt;h2 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;本文主要是从贝塞尔曲线的定义和求导下手进行简单贝塞尔曲线的学习和整理。&lt;/code&gt;&lt;/pre&gt;
+&lt;h2</summary>
         
       
     
     
     
-    <category term="配置" scheme="https://zkm98.github.io/categories/%E9%85%8D%E7%BD%AE/"/>
+    <category term="算法" scheme="https://zkm98.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="c++" scheme="https://zkm98.github.io/tags/c/"/>
+    
+    <category term="算法" scheme="https://zkm98.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>贝塞尔曲线的学习二：贝塞尔曲线的长度和等长贝塞尔曲线选点</title>
+    <link href="https://zkm98.github.io/2021/06/02/suan-fa/bei-sai-er-qu-xian-de-xue-xi-er-bei-sai-er-qu-xian-de-chang-du-he-deng-chang-bei-sai-er-qu-xian-xuan-dian/"/>
+    <id>https://zkm98.github.io/2021/06/02/suan-fa/bei-sai-er-qu-xian-de-xue-xi-er-bei-sai-er-qu-xian-de-chang-du-he-deng-chang-bei-sai-er-qu-xian-xuan-dian/</id>
+    <published>2021-06-02T02:26:00.000Z</published>
+    <updated>2021-06-02T07:54:18.560Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt; </summary>
+        
+      
+    
+    
+    
+    <category term="算法" scheme="https://zkm98.github.io/categories/%E7%AE%97%E6%B3%95/"/>
     
     
     <category term="c++" scheme="https://zkm98.github.io/tags/c/"/>
@@ -49,7 +76,7 @@
     <link href="https://zkm98.github.io/2021/05/27/pei-zhi-guo-cheng/hello-world/"/>
     <id>https://zkm98.github.io/2021/05/27/pei-zhi-guo-cheng/hello-world/</id>
     <published>2021-05-27T12:26:00.000Z</published>
-    <updated>2021-05-27T00:52:47.013Z</updated>
+    <updated>2021-06-02T07:18:40.634Z</updated>
     
     
       
